@@ -34,10 +34,10 @@ map("n", "<C-k>", "<C-w>k", "Focus window up")
 map("n", "<C-j>", "<C-w>j", "Focus window down")
 
 -- Resize Windows
-map("n", "<C-Left>", "<C-w><", "Resize window left")
-map("n", "<C-Right>", "<C-w>>", "Resize window right")
-map("n", "<C-Up>", "<C-w>+", "Resize window up")
-map("n", "<C-Down>", "<C-w>-", "Resize window down")
+map("n", "<A-h>", "<C-w><", "Resize window left")
+map("n", "<A-l>", "<C-w>>", "Resize window right")
+map("n", "<A-k>", "<C-w>+", "Resize window up")
+map("n", "<A-j>", "<C-w>-", "Resize window down")
 
 -- Buffer Management
 map("n", "<leader>bn", "<cmd>bnext<cr>", "Next buffer")
