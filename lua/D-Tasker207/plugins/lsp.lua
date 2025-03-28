@@ -58,6 +58,10 @@ return {
 		-- Default setup handler
 		mason_lspconfig.setup_handlers({
 			function(server_name)
+				if server_name == "jdtls" then
+					return -- we manage this in ftplugin/java.lua
+				end
+
 				lspconfig[server_name].setup({
 					capabilities = capabilities,
 					on_attach = on_attach,

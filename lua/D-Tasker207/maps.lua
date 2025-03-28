@@ -14,7 +14,7 @@ map("n", "<leader>q", "<CMD>q<CR>", "Quit neovim")
 map("i", "jk", "<ESC>", "Exit insert mode")
 
 -- Toggle Term
-map("n", "<F7>", "<cmd>ToggleTerm<cr>", "Toggle a terminal window")
+map("n", "<leader>tt", "<cmd>ToggleTerm<cr>", "Toggle a terminal window")
 
 -- Exit terminal mode
 map("t", "<Esc>", [[<C-\><C-n>]], "Exit terminal mode")
