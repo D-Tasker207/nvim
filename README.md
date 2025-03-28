@@ -26,7 +26,7 @@ Plugin specs are organized in `lua/D-Tasker207/plugins/`.
 │   └─ D-Tasker207/
 │      ├── settings.lua – Core Neovim options
 │      ├── maps.lua     – Keymaps
-│      ├── lazy.lua    – Lazy.nvim bootstra
+│      ├── lazy.lua     – Lazy.nvim bootstra
 │      └── plugins/     – All plugin specs
 └── ftplugin/
     └── java.lua        – Per-project config for jdtls
