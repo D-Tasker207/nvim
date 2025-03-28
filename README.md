@@ -63,7 +63,7 @@ Plugin specs are organized in `lua/D-Tasker207/plugins/`.
 - `pylint`, `flake8`, `luacheck`, `yamllint`, `markdownlint`
 (Some of these are broken but for now I don't feel like fixing it)
 
-## 🧠 Keymaps (Essential)
+## Keymaps (Essential)
 
 | Mode | Keybind         | Action                              |
 |------|------------------|--------------------------------------|
