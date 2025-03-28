@@ -11,10 +11,20 @@ M.opts = {
 				hide_gitignored = true,
 				hide_by_name = {
 					".git",
-					".DS_Store",
-					"thumbs.db",
 				},
-				never_show = {},
+				never_show = {
+					"thumbs.db",        -- Windows
+					"desktop.ini",      -- Windows
+					".DS_Store",        -- macOS Finder metadata
+					".Trash-*",         -- macOS hidden trash dirs
+					"Icon\r",           -- Classic Mac icon file
+					"ehthumbs.db",      -- Windows thumbnail cache
+					".Spotlight-V100",  -- macOS search metadata
+					".TemporaryItems",
+					".fseventsd",
+					".VolumeIcon.icns",
+					".AppleDouble",
+				},
 			},
 			group_empty_dirs = true,
 		},
