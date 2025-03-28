@@ -6,12 +6,12 @@ return {
 		local gitsigns = require("gitsigns")
 		gitsigns.setup({
 			signs = {
-				add = { text = "│" },
-				change = { text = "│" },
-				delete = { text = "_" },
-				topdelete = { text = "‾" },
-				changedelete = { text = "~" },
-				untracked = { text = "┆" },
+				add = { text = "A" },
+				change = { text = "M" },
+				delete = { text = "D" },
+				topdelete = { text = "D" },
+				changedelete = { text = "M" },
+				untracked = { text = "U" },
 			},
 			signcolumn = true, -- Toggle with `:Gitsigns toggle_signs`
 			numhl = false, -- Toggle with `:Gitsigns toggle_numhl`
