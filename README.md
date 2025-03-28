@@ -19,17 +19,18 @@ Plugin specs are organized in `lua/D-Tasker207/plugins/`.
 
 ## Directory Structure
 
+```text
 ~/.config/nvim/
 ├── init.lua
 ├── lua/
-│ ├── D-Tasker207/
-│ │ ├── settings.lua – Core Neovim options
-│ │ ├── maps.lua – Keymaps
-│ │ └── plugins/ – All plugin specs
-│ └── D-Tasker207/
-│ └── lazy.lua – Lazy.nvim bootstrap
+│   └─ D-Tasker207/
+│      ├── settings.lua – Core Neovim options
+│      ├── maps.lua     – Keymaps
+│      ├── lazy.lua    – Lazy.nvim bootstra
+│      └── plugins/     – All plugin specs
 └── ftplugin/
-└── java.lua – Per-project config for jdtls
+    └── java.lua        – Per-project config for jdtls
+```
 
 ## Getting Started
 
@@ -48,7 +49,7 @@ Plugin specs are organized in `lua/D-Tasker207/plugins/`.
 ### LSPs (via `mason-lspconfig`)
 
 - Lua (`lua_ls`)
-- TypeScript/JavaScript (`tsserver`)
+- TypeScript/JavaScript (`ts_ls`)
 - Python (`pyright`)
 - HTML/CSS/JSON (`html`, `cssls`, `jsonls`)
 - Rust (`rust_analyzer`)
@@ -64,20 +65,20 @@ Plugin specs are organized in `lua/D-Tasker207/plugins/`.
 
 ## Keymaps (Essential)
 
-| Mode  | Keybind         | Action                             |
-| ----- | --------------- | ---------------------------------- |
-| `n`   | `<leader>w`     | Save current buffer                |
-| `n`   | `<leader>q`     | Quit Neovim                        |
-| `n`   | `<leader>e`     | Toggle NeoTree                     |
-| `n`   | `<leader>o/p`   | Vertical / Horizontal split        |
-| `n`   | `<A-h/j/k/l>`   | Resize window ← ↓ ↑ →              |
-| `n`   | `<C-h/j/k/l>`   | Navigate window ← ↓ ↑ →            |
-| `n`   | `<leader>bn/bp` | Next / Previous buffer             |
-| `n`   | `<F7>`          | Toggle floating terminal           |
-| `t`   | `<Esc>`         | Exit terminal mode                 |
-| `n/v` | `<leader>/`     | Toggle comment (line or selection) |
-| `n`   | `<leader>ff`    | Telescope: find files              |
-| `n`   | `<leader>fg`    | Telescope: live grep               |
+| Mode  | Keybind           | Action                             |
+| ----- | ----------------- | ---------------------------------- |
+| `n`   | `<leader>w`       | Save current buffer                |
+| `n`   | `<leader>q`       | Quit Neovim                        |
+| `n`   | `<leader>e`       | Toggle NeoTree                     |
+| `n`   | `<leader>o/p`     | Vertical / Horizontal split        |
+| `n`   | `<leader>H/J/K/L` | Resize window ← ↓ ↑ →              |
+| `n`   | `<C-h/j/k/l>`     | Navigate window ← ↓ ↑ →            |
+| `n`   | `<leader>bn/bp`   | Next / Previous buffer             |
+| `n`   | `<leader>tt`      | Toggle floating terminal           |
+| `t`   | `<Esc>`           | Exit terminal mode                 |
+| `n/v` | `<leader>/`       | Toggle comment (line or selection) |
+| `n`   | `<leader>ff`      | Telescope: find files              |
+| `n`   | `<leader>fg`      | Telescope: live grep               |
 
 _For a full list of custom mappings, see [`maps.lua`](lua/D-Tasker207/maps.lua)._
 _(Theres also like 5 in [`cmp.lua`](lua/D-Tasker207/plugins/cmp.lua) and several more in [`telescope.lua`](lua/D-Tasker207/plugins/telescope.lua))_

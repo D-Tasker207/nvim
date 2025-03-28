@@ -34,10 +34,10 @@ map("n", "<C-k>", "<C-w>k", "Focus window up")
 map("n", "<C-j>", "<C-w>j", "Focus window down")
 
 -- Resize Windows
-map("n", "<A-h>", "<C-w><", "Resize window left")
-map("n", "<A-l>", "<C-w>>", "Resize window right")
-map("n", "<A-k>", "<C-w>+", "Resize window up")
-map("n", "<A-j>", "<C-w>-", "Resize window down")
+map("n", "<leader>H", "<C-w><", "Resize window left")
+map("n", "<leader>L", "<C-w>>", "Resize window right")
+map("n", "<leader>K", "<C-w>+", "Resize window up")
+map("n", "<leader>J", "<C-w>-", "Resize window down")
 
 -- Buffer Management
 map("n", "<leader>bn", "<cmd>bnext<cr>", "Next buffer")
@@ -53,3 +53,8 @@ map("n", "<leader>tc", "<cmd>tabclose<cr>", "Close tab")
 -- Comment
 map("n", "<leader>/", "<cmd>lua require('Comment.api').toggle.linewise.current()<CR>", "Toggle comment (line)")
 map("v", "<leader>/", "<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>", "Toggle comment (selection)")
+
+-- Quick hover diagnostics (float)
+map("n", "<leader>le", function()
+    vim.diagnostic.open_float(nil, { focus = false })
+  end, "Show diagnostics under cursor")
