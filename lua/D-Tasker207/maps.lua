@@ -1,7 +1,7 @@
 vim.g.mapleader = " "
 
 local function map(mode, lhs, rhs, desc)
-    vim.keymap.set(mode, lhs, rhs, { silent = true, desc = desc })
+	vim.keymap.set(mode, lhs, rhs, { silent = true, desc = desc })
 end
 
 -- Save
@@ -52,9 +52,19 @@ map("n", "<leader>tc", "<cmd>tabclose<cr>", "Close tab")
 
 -- Comment
 map("n", "<leader>/", "<cmd>lua require('Comment.api').toggle.linewise.current()<CR>", "Toggle comment (line)")
-map("v", "<leader>/", "<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>", "Toggle comment (selection)")
+map(
+	"v",
+	"<leader>/",
+	"<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>",
+	"Toggle comment (selection)"
+)
 
 -- Quick hover diagnostics (float)
 map("n", "<leader>le", function()
-    vim.diagnostic.open_float(nil, { focus = false })
-  end, "Show diagnostics under cursor")
+	vim.diagnostic.open_float(nil, { focus = false })
+end, "Show diagnostics under cursor")
+
+-- toggle group empty dirs
+map("n", "<leader>tg", function()
+	require("config.neotree").toggle_group_empty_dirs()
+end, "Toggle NeoTree group_empty_dirs")
