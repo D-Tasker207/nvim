@@ -38,9 +38,26 @@ return {
 				-- <S-Tab>: Select the previous completion item
 				["<S-Tab>"] = cmp.mapping.select_prev_item(),
 
-				-- <CR>: Confirm selected completion item
-				-- If no item is selected, selects the first one
-				["<CR>"] = cmp.mapping.confirm({ select = true }),
+				-- <CR>: Confirm completion
+				-- If the completion item is from copilot, don't auto select it
+				-- This is because copilot suggestions are often not what you want
+				-- and you should manually select them
+				-- Otherwise, auto select the completion item
+				["<CR>"] = function(fallback)
+					local cmp = require("cmp")
+					local entry = cmp.get_selected_entry()
+					local source_name = entry and entry.source.name or ""
+
+					if entry then
+						if source_name ~= "copilot" then
+							cmp.confirm({ select = true })
+						else
+							cmp.confirm({ select = false }) -- Don't auto select copilot suggestions
+						end
+					else
+						fallback()
+					end
+				end,
 
 				-- <C-Space>: Manually trigger the completion menu
 				["<C-Space>"] = cmp.mapping.complete(),
