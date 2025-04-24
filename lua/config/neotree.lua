@@ -46,6 +46,17 @@ M.opts = {
 			staged = "✓", -- Optional
    		conflict = "?",
 		},
+  event_handlers = {
+    {
+      event = "file_opened",
+      handler = function(file_path)
+        if file_path:match("%.pdf$") then
+          vim.fn.jobstart({"open", file_path}, {detach = true})
+          vim.cmd("bd")
+        end
+      end,
+    },
+  },
 }
 -- Toggle state variable (not persistant between sessions or windoww)
 
