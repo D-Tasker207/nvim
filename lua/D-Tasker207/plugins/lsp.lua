@@ -31,6 +31,7 @@ return {
 				"clangd",
 				"dockerls",
 				"cmake",
+				"terraformls",
 			},
 		})
 
@@ -56,27 +57,35 @@ return {
 		end
 
 		-- Default setup handler
-		mason_lspconfig.setup_handlers({
-			function(server_name)
-				if server_name == "jdtls" then
-					return -- we manage this in ftplugin/java.lua
-				end
+		-- mason_lspconfig.setup_handlers({
+		-- 	function(server_name)
+		-- 		if server_name == "jdtls" then
+		-- 			return -- we manage this in ftplugin/java.lua
+		-- 		end
 
+		-- 		lspconfig[server_name].setup({
+		-- 			capabilities = capabilities,
+		-- 			on_attach = on_attach,
+		-- 		})
+		-- 	end,
+
+		-- 	-- Optional: Custom setup per server if needed
+		-- 	-- ["tsserver"] = function()
+		-- 	--   lspconfig.tsserver.setup({
+		-- 	--     capabilities = capabilities,
+		-- 	--     on_attach = on_attach,
+		-- 	--     settings = { ... }
+		-- 	--   })
+		-- 	-- end,
+		-- })
+		for _, server_name in ipairs(mason_lspconfig.get_installed_servers()) do
+			if server_name ~= "jdtls" then
 				lspconfig[server_name].setup({
 					capabilities = capabilities,
 					on_attach = on_attach,
 				})
-			end,
-
-			-- Optional: Custom setup per server if needed
-			-- ["tsserver"] = function()
-			--   lspconfig.tsserver.setup({
-			--     capabilities = capabilities,
-			--     on_attach = on_attach,
-			--     settings = { ... }
-			--   })
-			-- end,
-		})
+			end
+		end
 
 		-- Optional: specific Neovim config for Lua LSP
 		require("neodev").setup({

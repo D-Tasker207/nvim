@@ -26,7 +26,7 @@ return {
 				"dockerls",
 				"clangd",
 				"cmake",
-				"makefile_language_server",
+				-- "makefile_language_server",
 				"rust_analyzer",
 
 				-- Lua

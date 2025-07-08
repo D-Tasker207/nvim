@@ -18,11 +18,15 @@ return {
 				"isort",
 				"shfmt",
 				"clang-format",
+				"terraform",
 
 				-- Linters
 				"pylint",
 				"yamllint",
 				"markdownlint",
+				"terraform",
+				"cpplint",
+				"eslint_d"
 			},
 			automatic_installation = true,
 		})
@@ -38,11 +42,15 @@ return {
 				null_ls.builtins.formatting.isort,
 				null_ls.builtins.formatting.shfmt,
 				null_ls.builtins.formatting.clang_format,
+				null_ls.builtins.formatting.terraform,
 
 				-- Linters
 				null_ls.builtins.diagnostics.pylint,
 				null_ls.builtins.diagnostics.yamllint,
 				null_ls.builtins.diagnostics.markdownlint,
+				null_ls.builtins.diagnostics.terraform,
+				null_ls.builtins.diagnostics.cpplint,
+				null_ls.builtins.diagnostics.eslint_d,
 			},
 
 			on_attach = function(client, bufnr)
