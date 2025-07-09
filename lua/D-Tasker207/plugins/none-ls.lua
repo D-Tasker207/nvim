@@ -29,29 +29,35 @@ return {
 				"eslint_d"
 			},
 			automatic_installation = true,
+
+			handlers = {
+				function(source_name, methods)
+					require("mason-null-ls").default_setup(source_name, methods)
+				end,
+			}
 		})
 
 		null_ls.setup({
-			sources = {
-				-- Formatters
-				null_ls.builtins.formatting.prettier.with({
-					extra_args = { "--insert-final-newline" },
-				}),
-				null_ls.builtins.formatting.stylua,
-				null_ls.builtins.formatting.black,
-				null_ls.builtins.formatting.isort,
-				null_ls.builtins.formatting.shfmt,
-				null_ls.builtins.formatting.clang_format,
-				null_ls.builtins.formatting.terraform,
+			-- sources = {
+			-- 	-- Formatters
+			-- 	null_ls.builtins.formatting.prettier.with({
+			-- 		extra_args = { "--insert-final-newline" },
+			-- 	}),
+			-- 	null_ls.builtins.formatting.stylua,
+			-- 	null_ls.builtins.formatting.black,
+			-- 	null_ls.builtins.formatting.isort,
+			-- 	null_ls.builtins.formatting.shfmt,
+			-- 	null_ls.builtins.formatting.clang_format,
+			-- 	null_ls.builtins.formatting.terraform,
 
-				-- Linters
-				null_ls.builtins.diagnostics.pylint,
-				null_ls.builtins.diagnostics.yamllint,
-				null_ls.builtins.diagnostics.markdownlint,
-				null_ls.builtins.diagnostics.terraform,
-				null_ls.builtins.diagnostics.cpplint,
-				null_ls.builtins.diagnostics.eslint_d,
-			},
+			-- 	-- Linters
+			-- 	null_ls.builtins.diagnostics.pylint,
+			-- 	null_ls.builtins.diagnostics.yamllint,
+			-- 	null_ls.builtins.diagnostics.markdownlint,
+			-- 	null_ls.builtins.diagnostics.terraform,
+			-- 	null_ls.builtins.diagnostics.cpplint,
+			-- 	null_ls.builtins.diagnostics.eslint_d,
+			-- },
 
 			on_attach = function(client, bufnr)
 				if client.supports_method("textDocument/formatting") then

@@ -15,7 +15,7 @@ return {
 				"cssls",
 				"html",
 				"jsonls",
-				"tsserver",
+				"ts_ls",
 				"eslint",
 				"tailwindcss",
 
@@ -23,7 +23,7 @@ return {
 				"pyright",
 
 				-- Systems/Infra
-				"dockerls",
+				"dockerls",	
 				"clangd",
 				"cmake",
 				-- "makefile_language_server",
