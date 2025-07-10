@@ -67,7 +67,7 @@ _More can be installed via :Mason_
 
 ## Keymaps
 
-`<leader>` is by defualt the `<space>` key however this is configurable in [`maps.lua`](./DTasker207/maps.lua)
+`<leader>` is by defualt the `<space>` key however this is configurable in [`maps.lua`](./lua/D-Tasker207/maps.lua)
 
 ### Vim actions
 
