@@ -37,6 +37,7 @@ return {
 
 		-- Capabilities for nvim-cmp
 		local capabilities = require("cmp_nvim_lsp").default_capabilities()
+		capabilities.positionEncoding = {"utf-16"} -- Use utf-16 encoding for positions
 
 		-- on_attach function, applies to every LSP
 		local on_attach = function(client, bufnr)

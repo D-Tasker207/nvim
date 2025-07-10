@@ -6,7 +6,49 @@ return {
         tag = "0.1.6",
         dependencies = { "nvim-lua/plenary.nvim" },
         config = function()
-            require("telescope").setup()
+            require("telescope").setup({
+                defaults = {
+                    initial_mode = "normal",
+                    file_ignore_patterns = {
+                        "node_modules",
+                        "%.git",
+                        "dist",
+                        "build",
+                        "target",
+                        "__pycache__",
+                        "env",
+                        "venv",
+                        "%.venv",
+                        "%.idea",
+                        "%.vscode",
+                        "site-packages",
+                        ".*%.lock",
+                        ".*%.min.js",
+                        ".*%.min.css",
+                        ".*%.log",
+                        ".*%.pyc",
+                        ".*%.class",
+                        ".*%.zip",
+                        ".*%.tar.gz",
+                        "%.terraform.*",
+                     },
+                    mappings = {
+                        i = {
+                            ["<C-h>"] = "which_key",
+                            ["<C-j>"] = "move_selection_next",
+                            ["<C-k>"] = "move_selection_previous",
+                        },
+                        n = {
+                            ["q"] = require("telescope.actions").close,  
+                        }
+                    },
+                },
+                pickers = {
+                    find_files = {
+                        hidden = true,
+                    },
+                },
+            })
 
             local keymap = vim.keymap
             keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "Fuzzy find files in cwd" })

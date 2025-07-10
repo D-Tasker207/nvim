@@ -26,7 +26,7 @@ Plugin specs are organized in `lua/D-Tasker207/plugins/`.
 │   └─ D-Tasker207/
 │      ├── settings.lua – Core Neovim options
 │      ├── maps.lua     – Keymaps
-│      ├── lazy.lua     – Lazy.nvim bootstra
+│      ├── lazy.lua     – Lazy.nvim bootstrap
 │      └── plugins/     – All plugin specs
 └── ftplugin/
     └── java.lua        – Per-project config for jdtls
@@ -41,8 +41,10 @@ Plugin specs are organized in `lua/D-Tasker207/plugins/`.
 ## Requirements
 
 - **Neovim** >= 0.9
-- **`git`**, **`make`**, and a functional compiler toolchain
+- **`git`**, **`make`**, **`gcc`**, **`lua`**, **`npm`**, **`yarn`**, **`python`**
 - **Java 21+** (required for `jdtls`)
+
+Probably additional things too but I don't have time to test this at the moment.
 
 ## Language Support Highlights
 
@@ -61,27 +63,98 @@ Plugin specs are organized in `lua/D-Tasker207/plugins/`.
 
 - `prettier`, `stylua`, `black`, `isort`, `shfmt`, `clang-format`
 - `pylint`, `flake8`, `luacheck`, `yamllint`, `markdownlint`
-  (Some of these are broken but for now I don't feel like fixing it)
+_More can be installed via :Mason_
 
-## Keymaps (Essential)
+## Keymaps
+
+`<leader>` is by defualt the `<space>` key however this is configurable in [`maps.lua`](./DTasker207/maps.lua)
+
+### Vim actions
 
 | Mode  | Keybind           | Action                             |
 | ----- | ----------------- | ---------------------------------- |
 | `n`   | `<leader>w`       | Save current buffer                |
 | `n`   | `<leader>q`       | Quit Neovim                        |
+| `i`   | `jk`              | Exit Insert Mode                   |
+
+### Neotree (File explorer)
+
+| Mode  | Keybind           | Action                             |
+| ----- | ----------------- | ---------------------------------- |
 | `n`   | `<leader>e`       | Toggle NeoTree                     |
-| `n`   | `<leader>o/p`     | Vertical / Horizontal split        |
+| `n`   | `<leader>r`       | Focus NeoTree window               |
+| `n`   | `<leader>tg`      | Toggle Empty Directory Grouping    |
+
+### Window/Tab management
+
+| Mode  | Keybind           | Action                             |
+| ----- | ----------------- | ---------------------------------- |
+| `n`   | `<leader>o`       | Vertical Split                     |
+| `n`   | `<leader>p`       | Horizontal Split                   |
 | `n`   | `<leader>H/J/K/L` | Resize window ← ↓ ↑ →              |
 | `n`   | `<C-h/j/k/l>`     | Navigate window ← ↓ ↑ →            |
 | `n`   | `<leader>bn/bp`   | Next / Previous buffer             |
+| `n`   | `<leader>tn`      | New Tab                            |
+| `n`   | `<leader>tc`      | Close Tab                          |
+| `n`   | `<leader>tl`      | Next Tab                           |
+| `n`   | `<leader>th`      | Previous Tab                       |
+
+### Toggle Terminal
+
+| Mode  | Keybind           | Action                             |
+| ----- | ----------------- | ---------------------------------- |
 | `n`   | `<leader>tt`      | Toggle floating terminal           |
 | `t`   | `<Esc>`           | Exit terminal mode                 |
-| `n/v` | `<leader>/`       | Toggle comment (line or selection) |
-| `n`   | `<leader>ff`      | Telescope: find files              |
-| `n`   | `<leader>fg`      | Telescope: live grep               |
 
-_For a full list of custom mappings, see [`maps.lua`](lua/D-Tasker207/maps.lua)._
-_(Theres also like 5 in [`cmp.lua`](lua/D-Tasker207/plugins/cmp.lua) and several more in [`telescope.lua`](lua/D-Tasker207/plugins/telescope.lua))_
+### Commenting
+
+| Mode  | Keybind           | Action                             |
+| ----- | ----------------- | ---------------------------------- |
+| `n`   | `<leader>/`       | Toggle Line Comment                |
+| `n`   | `<leader>/`       | Toggle Selection Comment           |
+
+### Telescope (Fuzzy Finder & Live Grep)
+
+| Mode  | Keybind           | Action                             |
+| ----- | ----------------- | ---------------------------------- |
+| `n`   | `<leader>le`      | Show Diagnostics Under Cusor       |
+| `n`   | `<leader>ld`      | Show Diagnostics In Project        |
+| `n`   | `<leader>ff`      | Live Find Files                    |
+| `n`   | `<leader>fg`      | Life Grep Files                    |
+| `n`   | `<leader>fb`      | Find Open Buffers                  |
+| `n`   | `<leader>fs`      | Git Diff Modified Files            |
+| `n`   | `<leader>fc`      | List Git Commit History            |
+| `n`   | `<leader>gr`      | List references to symbol          |
+| `n`   | `<leader>gd`      | Go To Symbol Definition            |
+| `n`   | `<leader>gi`      | Go To Implementation               |
+| `n`   | `<leader>gt`      | Go To Type Definition              |
+| `n`   | `<C-u>`           | Scroll Grep Preview Up             |
+| `n`   | `<C-d>`           | Scroll Grep Preview Down           |
+| `n`   | `q`               | Close Telescope Window             |
+
+## Treesitter
+Provides syntax tree features. Specific features depend on language.
+Use `:TSUpdate` to see a list of all available modules and install status.
+Use `:checkhealth nvim-treesitter` to see capabilities of all installed modules.
+
+Here are some keybinds that may or may not work depending on module capabilities.
+
+| Mode  | Keybind           | Action                                 |
+| ----- | ----------------- | -------------------------------------- |
+| `v`   | `af`              | Select the whole function              |
+| `v`   | `if`              | Select the inner part of the function  |
+| `v`   | `ac`              | Select the whole class                 |
+| `v`   | `ic`              | Select the inner part of the class     |
+| `v`   | `as`              | Select the whole statement             |
+| `v`   | `is`              | Select the inner part of the statement |
+| `n`   | `]m`              | Go to next function start              |
+| `n`   | `]c`              | Go to next class start                 |
+| `n`   | `]M`              | Go to next function end                |
+| `n`   | `]C`              | Go to next class end                   |
+| `n`   | `[m`              | Go to previous function start          |
+| `n`   | `[c`              | Go to previous class start             |
+| `n`   | `[M`              | Go to previous function end            |
+| `n`   | `[C`              | Go to previous class end               |
 
 ## Java Support
 
