@@ -4,6 +4,8 @@ local M = {}
 
 M.opts = {
 		filesystem = {
+			follow_current_file = { enabled = false },
+			bind_to_cwd = false,
 			filtered_items = {
 				visible = true,
 				show_hidden_count = true,
