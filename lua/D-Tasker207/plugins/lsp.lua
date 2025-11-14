@@ -11,82 +11,33 @@ return {
 	},
 	config = function()
 		-- Required modules
-		local lspconfig = require("lspconfig")
 		local mason = require("mason")
-		local mason_lspconfig = require("mason-lspconfig")
+		local mlsp = require("mason-lspconfig")
 
 		-- Start Mason
 		mason.setup()
-		mason_lspconfig.setup({
+		mlsp.setup({
 			ensure_installed = {
-				"lua_ls",
-				"ts_ls",
-				"pyright",
-				"html",
-				"cssls",
-				"jsonls",
-				"eslint",
-				"tailwindcss",
-				"rust_analyzer",
-				"clangd",
-				"dockerls",
-				"cmake",
-				"terraformls",
+        "lua_ls",
+        "ts_ls",
+        "pyright",
+        "html",
+        "cssls",
+        "jsonls",
+        "eslint",
+        "tailwindcss",
+        "rust_analyzer",
+        "clangd",
+        "dockerls",
+        "cmake",
+        "terraformls",
 			},
 		})
 
 		-- Capabilities for nvim-cmp
-		local capabilities = require("cmp_nvim_lsp").default_capabilities()
-		capabilities.positionEncoding = {"utf-16"} -- Use utf-16 encoding for positions
-
-		-- on_attach function, applies to every LSP
-		local on_attach = function(client, bufnr)
-			-- Enable format on save
-			if client.server_capabilities.documentFormattingProvider then
-				-- Only create the autocommand group once
-				local augroup = vim.api.nvim_create_augroup("LspFormatting", { clear = false })
-
-				vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-				vim.api.nvim_create_autocmd("BufWritePre", {
-					group = augroup,
-					buffer = bufnr,
-					callback = function()
-						vim.lsp.buf.format({ bufnr = bufnr })
-					end,
-				})
-			end
-		end
-
-		-- Default setup handler
-		-- mason_lspconfig.setup_handlers({
-		-- 	function(server_name)
-		-- 		if server_name == "jdtls" then
-		-- 			return -- we manage this in ftplugin/java.lua
-		-- 		end
-
-		-- 		lspconfig[server_name].setup({
-		-- 			capabilities = capabilities,
-		-- 			on_attach = on_attach,
-		-- 		})
-		-- 	end,
-
-		-- 	-- Optional: Custom setup per server if needed
-		-- 	-- ["tsserver"] = function()
-		-- 	--   lspconfig.tsserver.setup({
-		-- 	--     capabilities = capabilities,
-		-- 	--     on_attach = on_attach,
-		-- 	--     settings = { ... }
-		-- 	--   })
-		-- 	-- end,
-		-- })
-		for _, server_name in ipairs(mason_lspconfig.get_installed_servers()) do
-			if server_name ~= "jdtls" then
-				lspconfig[server_name].setup({
-					capabilities = capabilities,
-					on_attach = on_attach,
-				})
-			end
-		end
+		local caps = require("cmp_nvim_lsp").default_capabilities()
+		caps.offsetEncoding = {"utf-16"} -- for clangd
+		vim.lsp.config("defaults", { capabilities = caps, on_attach = function() end })
 
 		-- Optional: specific Neovim config for Lua LSP
 		require("neodev").setup({
@@ -97,15 +48,12 @@ return {
 				plugins = true,
 			},
 			setup_jsonls = true,
-			override = {},
-			lspconfig = true,
 			pathStrict = true,
 			debug = false,
 		}) -- enhances Lua workspace understanding
 
-		lspconfig.lua_ls.setup({
+		vim.lsp.config("lua_ls", {
 			capabilities = capabilities,
-			on_attach = on_attach,
 			settings = {
 				Lua = {
 					workspace = { checkThirdParty = false },
@@ -113,5 +61,15 @@ return {
 				},
 			},
 		})
+
+		for _, server_name in ipairs(mlsp.get_installed_servers()) do
+			if server_name ~= "jdtls" then
+				vim.lsp.enable(server_name)
+			end
+		end
+
+		local fmt = require("D-Tasker207.utils.format")
+		fmt.setup_autosave()
+		fmt.setup_user_commands()
 	end,
 }
