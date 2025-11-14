@@ -68,3 +68,8 @@ end, "Show diagnostics under cursor")
 map("n", "<leader>tg", function()
 	require("config.neotree").toggle_group_empty_dirs()
 end, "Toggle NeoTree group_empty_dirs")
+
+-- format file
+map({"n", "v"}, "<leader>fm", function()
+	vim.lsp.buf.format({async = true})
+end, "Format current buffer")
