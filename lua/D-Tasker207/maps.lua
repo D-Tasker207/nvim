@@ -42,7 +42,7 @@ map("n", "<leader>J", "<C-w>-", "Resize window down")
 -- Buffer Management
 map("n", "<leader>bn", "<cmd>bnext<cr>", "Next buffer")
 map("n", "<leader>bp", "<cmd>bprevious<cr>", "Previous buffer")
-map("n", "<leader>bd", "<cmd>bd<cr>", "Close buffer")
+map("n", "<leader>bd", "<cmd>bp<bar>bd #<cr>", "Close buffer")
 
 -- Tab Management
 map("n", "<leader>tn", "<cmd>tabnew<cr>", "New tab")

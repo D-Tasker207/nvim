@@ -1,23 +1,23 @@
 -- lsp.lua - Language server configuration
 
 return {
-	"neovim/nvim-lspconfig",
-	event = { "BufReadPre", "BufNewFile" },
-	dependencies = {
-		"hrsh7th/cmp-nvim-lsp",
-		{ "folke/neodev.nvim", opts = {} },
-		"williamboman/mason.nvim",
-		"williamboman/mason-lspconfig.nvim",
-	},
-	config = function()
-		-- Required modules
-		local mason = require("mason")
-		local mlsp = require("mason-lspconfig")
+  "neovim/nvim-lspconfig",
+  event = { "BufReadPre", "BufNewFile" },
+  dependencies = {
+    "hrsh7th/cmp-nvim-lsp",
+    { "folke/neodev.nvim", opts = {} },
+    "williamboman/mason.nvim",
+    "williamboman/mason-lspconfig.nvim",
+  },
+  config = function()
+    -- Required modules
+    local mason = require("mason")
+    local mlsp = require("mason-lspconfig")
 
-		-- Start Mason
-		mason.setup()
-		mlsp.setup({
-			ensure_installed = {
+    -- Start Mason
+    mason.setup()
+    mlsp.setup({
+      ensure_installed = {
         "lua_ls",
         "ts_ls",
         "pyright",
@@ -31,45 +31,88 @@ return {
         "dockerls",
         "cmake",
         "terraformls",
-			},
-		})
+      },
+    })
 
-		-- Capabilities for nvim-cmp
-		local caps = require("cmp_nvim_lsp").default_capabilities()
-		caps.offsetEncoding = {"utf-16"} -- for clangd
-		vim.lsp.config("defaults", { capabilities = caps, on_attach = function() end })
+    -- Capabilities for nvim-cmp
+    local capabilities = require("cmp_nvim_lsp").default_capabilities()
+    capabilities.offsetEncoding = { "utf-16" } -- for clangd
 
-		-- Optional: specific Neovim config for Lua LSP
-		require("neodev").setup({
-			library = {
-				enabled = true,
-				runtime = true,
-				types = true,
-				plugins = true,
-			},
-			setup_jsonls = true,
-			pathStrict = true,
-			debug = false,
-		}) -- enhances Lua workspace understanding
+    -- Common on_attach: enable inlay hints for rust-analyzer
+    local function on_attach(client, bufnr)
+      if client.name == "rust_analyzer"
+        and client.server_capabilities.inlayHintProvider
+      then
+        -- Neovim 0.10+ API
+        vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+      end
+    end
 
-		vim.lsp.config("lua_ls", {
-			capabilities = capabilities,
-			settings = {
-				Lua = {
-					workspace = { checkThirdParty = false },
-					telemetry = { enable = false },
-				},
-			},
-		})
+    -- Set defaults for ALL servers
+    -- (your previous "defaults" string doesn't do anything; use "*" here)
+    vim.lsp.config("*", {
+      capabilities = capabilities,
+      on_attach = on_attach,
+    })
 
-		for _, server_name in ipairs(mlsp.get_installed_servers()) do
-			if server_name ~= "jdtls" then
-				vim.lsp.enable(server_name)
-			end
-		end
+    -- rust-analyzer specific settings (explicitly turn on type hints)
+    vim.lsp.config("rust_analyzer", {
+      capabilities = capabilities,
+      on_attach = on_attach,
+      settings = {
+        ["rust-analyzer"] = {
+          inlayHints = {
+            typeHints = {
+              enable = true,
+              hideClosureInitialization = false,
+              hideNamedConstructor = false,
+            },
+            parameterHints = { enable = true },
+            chainingHints  = { enable = true },
+            bindingModeHints = { enable = true },
+            closingBraceHints = {
+              enable = true,
+              minLines = 0,
+            },
+            renderColons = true,
+            maxLength = 25,
+          },
+        },
+      },
+    })
 
-		local fmt = require("D-Tasker207.utils.format")
-		fmt.setup_autosave()
-		fmt.setup_user_commands()
-	end,
+    -- Optional: specific Neovim config for Lua LSP
+    require("neodev").setup({
+      library = {
+        enabled = true,
+        runtime = true,
+        types = true,
+        plugins = true,
+      },
+      setup_jsonls = true,
+      pathStrict = true,
+      debug = false,
+    })
+
+    vim.lsp.config("lua_ls", {
+      capabilities = capabilities,
+      settings = {
+        Lua = {
+          workspace = { checkThirdParty = false },
+          telemetry = { enable = false },
+        },
+      },
+    })
+
+    -- Enable all installed servers
+    for _, server_name in ipairs(mlsp.get_installed_servers()) do
+      if server_name ~= "jdtls" then
+        vim.lsp.enable(server_name)
+      end
+    end
+
+    local fmt = require("D-Tasker207.utils.format")
+    fmt.setup_autosave()
+    fmt.setup_user_commands()
+  end,
 }
