@@ -22,7 +22,19 @@ return {
 				"markdownlint",
 			},
 			automatic_installation = true,
-			handlers = { function(source_name, methods) mnull.default_setup(source_name, methods) end }
+			handlers = {
+        function(source_name, methods)
+          -- default for everything else
+          mnull.default_setup(source_name, methods)
+        end,
+
+        -- custom setup for markdownlint (disables MD013)
+        markdownlint = function()
+          null_ls.register(null_ls.builtins.diagnostics.markdownlint.with({
+            extra_args = { "--disable", "MD013" },
+          }))
+        end,
+      },
 		})
 
 		null_ls.setup({})
