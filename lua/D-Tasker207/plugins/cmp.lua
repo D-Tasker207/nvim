@@ -32,23 +32,34 @@ return {
 				end,
 			},
 			mapping = cmp.mapping.preset.insert({
-				-- <Tab>: Select the next completion item
-				["<Tab>"] = cmp.mapping.select_next_item(),
+				-- <C-j>: Select the next completion item
+				["<C-j>"] = cmp.mapping(function(fallback)
+					if cmp.visible() then
+						cmp.select_next_item()
+					else
+						fallback()
+					end
+				end, { "i", "s" }),
 
-				-- <S-Tab>: Select the previous completion item
-				["<S-Tab>"] = cmp.mapping.select_prev_item(),
+				-- <C-k>: Select the previous completion item
+				["<C-k>"] = cmp.mapping(function(fallback)
+					if cmp.visible() then
+						cmp.select_prev_item()
+					else
+						fallback()
+					end
+				end, { "i", "s" }),
 
-				-- <CR>: Confirm completion
+				-- <C-l>: Confirm completion
 				-- If the completion item is from copilot, don't auto select it
 				-- This is because copilot suggestions are often not what you want
 				-- and you should manually select them
 				-- Otherwise, auto select the completion item
-				["<CR>"] = function(fallback)
-					local cmp = require("cmp")
+				["<C-l>"] = cmp.mapping(function(fallback)
 					local entry = cmp.get_selected_entry()
 					local source_name = entry and entry.source.name or ""
 
-					if entry then
+					if cmp.visible() and entry then
 						if source_name ~= "copilot" then
 							cmp.confirm({ select = true })
 						else
@@ -57,7 +68,7 @@ return {
 					else
 						fallback()
 					end
-				end,
+				end, { "i", "s" }),
 
 				-- <C-Space>: Manually trigger the completion menu
 				["<C-Space>"] = cmp.mapping.complete(),
