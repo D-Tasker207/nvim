@@ -133,6 +133,7 @@ _More can be installed via :Mason_
 | `n`   | `q`               | Close Telescope Window             |
 
 ## Treesitter
+
 Provides syntax tree features. Specific features depend on language.
 Use `:TSUpdate` to see a list of all available modules and install status.
 Use `:checkhealth nvim-treesitter` to see capabilities of all installed modules.
@@ -155,6 +156,17 @@ Here are some keybinds that may or may not work depending on module capabilities
 | `n`   | `[c`              | Go to previous class start             |
 | `n`   | `[M`              | Go to previous function end            |
 | `n`   | `[C`              | Go to previous class end               |
+
+## Completions
+
+| Mode     | Keybind           | Action                                 |
+| -------- | ----------------- | -------------------------------------- |
+| `i`, `s` | `<C-j>`           | Next Completion item                   |
+| `i`, `s` | `<C-k>`           | Previous completion item               |
+| `i`, `s` | `<C-l>`           | Insert the selected item               |
+| `i`, `s` | `<C-space>`       | Open the completions menu (broken)     |
+| `i`, `s` | `<C-e>`           | Close the completions menu             |
+
 
 ## Java Support
 

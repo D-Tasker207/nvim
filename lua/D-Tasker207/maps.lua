@@ -42,22 +42,13 @@ map("n", "<leader>J", "<C-w>-", "Resize window down")
 -- Buffer Management
 map("n", "<leader>bn", "<cmd>bnext<cr>", "Next buffer")
 map("n", "<leader>bp", "<cmd>bprevious<cr>", "Previous buffer")
-map("n", "<leader>bd", "<cmd>bd<cr>", "Close buffer")
+map("n", "<leader>bd", "<cmd>bp<bar>bd #<cr>", "Close buffer")
 
 -- Tab Management
 map("n", "<leader>tn", "<cmd>tabnew<cr>", "New tab")
 map("n", "<leader>tl", "<cmd>tabnext<cr>", "Next tab")
 map("n", "<leader>th", "<cmd>tabprevious<cr>", "Previous tab")
 map("n", "<leader>tc", "<cmd>tabclose<cr>", "Close tab")
-
--- Comment
-map("n", "<leader>/", "<cmd>lua require('Comment.api').toggle.linewise.current()<CR>", "Toggle comment (line)")
-map(
-	"v",
-	"<leader>/",
-	"<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>",
-	"Toggle comment (selection)"
-)
 
 -- Quick hover diagnostics (float)
 map("n", "<leader>le", function()
