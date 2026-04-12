@@ -62,7 +62,7 @@ Probably additional things too but I don't have time to test this at the moment.
 ### Formatters & Linters (via `none-ls.nvim`)
 
 - `prettier`, `stylua`, `black`, `isort`, `shfmt`, `clang-format`
-- `pylint`, `flake8`, `luacheck`, `yamllint`, `markdownlint`
+- `ruff`, `luacheck`, `yamllint`, `markdownlint`
 _More can be installed via :Mason_
 
 ## Keymaps

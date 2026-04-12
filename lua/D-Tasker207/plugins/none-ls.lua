@@ -20,6 +20,7 @@ return {
 				-- Linters
 				"yamllint",
 				"markdownlint",
+				"ruff",
 			},
 			automatic_installation = true,
 			handlers = {

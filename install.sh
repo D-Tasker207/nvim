@@ -162,7 +162,7 @@ install_config() {
 # Install Python packages
 install_python_packages() {
     print_info "Installing Python packages..."
-    python3 -m pip install --user --upgrade pynvim black isort pylint flake8
+    python3 -m pip install --user --upgrade pynvim black isort ruff
 }
 
 # Post-installation message

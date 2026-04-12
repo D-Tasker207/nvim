@@ -42,7 +42,7 @@ return {
 				-- Linters
 				"yamllint",
 				"markdownlint",
-				"pylint",
+				"ruff",
 				"shellcheck",
 			},
 			auto_update = false,
