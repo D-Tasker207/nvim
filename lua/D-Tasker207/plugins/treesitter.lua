@@ -41,14 +41,6 @@ return {
         ts.setup()
         ts.install(parsers)
 
-        vim.api.nvim_create_autocmd("FileType", {
-            pattern = parsers,
-            callback = function()
-                vim.treesitter.start()
-                vim.bo.indentxpr = "v.lua.require'nvim-treesitter'.indentexpr()"
-            end,
-        })
-
         require("nvim-treesitter-textobjects").setup({
             select = {
                 lookahead = true,
