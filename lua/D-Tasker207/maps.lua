@@ -13,6 +13,10 @@ map("n", "<leader>q", "<CMD>q<CR>", "Quit neovim")
 -- Exit insert mode
 map("i", "jk", "<ESC>", "Exit insert mode")
 
+-- Tab indentation (prevents vim.snippet module error)
+map("i", "<Tab>", "<C-t>", "Indent line")
+map("i", "<S-Tab>", "<C-d>", "Dedent line")
+
 -- Toggle Term
 map("n", "<leader>tt", "<cmd>ToggleTerm<cr>", "Toggle a terminal window")
 
