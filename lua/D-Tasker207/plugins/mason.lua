@@ -1,9 +1,9 @@
 -- mason.lua - Installs LSP servers, linters, and formatters using mason.nvim
 
 return {
-	"williamboman/mason.nvim",
+  "mason-org/mason.nvim",
 	dependencies = {
-		"williamboman/mason-lspconfig.nvim",
+    "williamboman/mason-lspconfig.nvim",
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
 	},
 	config = function()
