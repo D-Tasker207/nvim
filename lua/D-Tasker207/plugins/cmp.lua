@@ -51,20 +51,13 @@ return {
 				end, { "i", "s" }),
 
 				-- <C-l>: Confirm completion
-				-- If the completion item is from copilot, don't auto select it
-				-- This is because copilot suggestions are often not what you want
-				-- and you should manually select them
-				-- Otherwise, auto select the completion item
+				-- 
+				-- CursorTab will also use <C-l>, but its completion
+				-- should only be accepted when the cmp menu is not
+				-- actively being used
 				["<C-l>"] = cmp.mapping(function(fallback)
-					local entry = cmp.get_selected_entry()
-					local source_name = entry and entry.source.name or ""
-
 					if cmp.visible() and entry then
-						if source_name ~= "copilot" then
-							cmp.confirm({ select = true })
-						else
-							cmp.confirm({ select = false }) -- Don't auto select copilot suggestions
-						end
+						cmp.confirm({ select = true })
 					else
 						fallback()
 					end
@@ -77,7 +70,6 @@ return {
 				["<C-e>"] = cmp.mapping.close(),
 			}),
 			sources = cmp.config.sources({
-				{ name = "copilot" },
 				{ name = "nvim_lsp" }, -- LSP completions
 				{ name = "luasnip" }, -- Snippets from LuaSnip
 				{ name = "buffer" }, -- Words from current buffer
