@@ -3,9 +3,18 @@
 return {
     {
         "nvim-telescope/telescope.nvim",
-        tag = "0.1.6",
+        branch = "master",
         dependencies = { "nvim-lua/plenary.nvim" },
         config = function()
+            -- Compatibility shim for plugins still using old treesitter APIi
+            if vim.treesitter
+                and vim.treesitter.language
+                and vim.treesitter.language.ft_to_lang == nil
+                and vim.treesitter.language.get_lang
+            then
+                vim.treesitter.language.ft_to_lang = vim.treesitter.language.get_lang
+            end
+
             require("telescope").setup({
                 defaults = {
                     initial_mode = "normal",
@@ -60,12 +69,14 @@ return {
             keymap.set("n", "<leader>gd", "<cmd>Telescope lsp_definitions<cr>", { desc = "Go to definition" })
             keymap.set("n", "<leader>gi", "<cmd>Telescope lsp_implementations<cr>", { desc = "Go to implementation" })
             keymap.set("n", "<leader>gt", "<cmd>Telescope lsp_type_definitions<cr>", { desc = "Type definition" })
-            keymap.set("n", "<leader>ld", "<cmd>Telescope diagnostics<cr>", { desc = "Document diagnostics" })
+            keymap.set("n", "<leader>ld", "<cmd>Telescope diagnostics bufnr=0<cr>", { desc = "Buffer diagnostics" })
+            keymap.set("n", "<leader>ldd", "<cmd>Telescope diagnostics<cr>", { desc = "Workspace diagnostics" })
         end,
     },
     {
         "nvim-telescope/telescope-fzf-native.nvim",
         build = "make",
+        dependencies = { "nvim-telescope/telescope.nvim" },
         config = function()
             require("telescope").load_extension("fzf")
         end,
