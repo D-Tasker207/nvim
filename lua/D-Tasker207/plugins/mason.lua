@@ -33,8 +33,6 @@ return {
 				"terraformls",
 
 				-- Formatters
-				"black",
-				"isort",
 				"shfmt",
 				"stylua",
 				"prettier",

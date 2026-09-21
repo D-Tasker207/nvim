@@ -12,15 +12,9 @@ return {
 
 		mnull.setup({
 			ensure_installed = {
-				-- Formatters
-				"black",
-				"isort",
 				"shfmt",
-
-				-- Linters
 				"yamllint",
 				"markdownlint",
-				"ruff",
 			},
 			automatic_installation = true,
 			handlers = {
